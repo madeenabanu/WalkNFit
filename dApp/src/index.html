@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ICPSteps Walk & Earn</title>
+    <base href="/">
+    <head>
+        <link rel="stylesheet" href="main.css">
+      </head>    
+    </head>
+<body>
+   <input type="hidden" id="passwordcheck">
+    <section id="bodyBun">
+          
+        <table>
+            <tbody>
+               <tr> 
+                  <td colspan="2"><p id="bunnyAvailable"></p></td>
+               </tr>                         
+
+               <tr>
+                  <td>
+                     <input class="btn" type="submit" id="my_bunny" value="My ICPBunnys" hidden>
+                  </td>                  
+                  <td align="center"><button class="btn" id="mintAgain" hidden>Mint Again</button></td>
+                 </tr>                
+               <tr>
+                  <td colspan="2"><div style="visibility: hidden">Meta Data <span id="bunny_meta_data"></span></div></td>
+               </tr>                  
+               <tr>
+                  <td>
+                     Enter the Image ID
+                     <input type="text" id="androidimageid" value="0">
+                     <input class="btn" type="submit" id="getImage" value="Get Image from Canister">
+                  </td>
+                  <td>
+                   </td>                  
+               </tr> 
+               <tr>
+                  <td colspan="2" height=10>&nbsp;</td>
+               </tr>   
+               <tr>
+                  <td>
+                     <section id="bunnynft">
+                        <input type="hidden" id="bunnyid" value=""> 
+                        <table id="nft" width="100%"> 
+                        </table>
+                    </section>                     
+                  </td>
+                  <td>
+                     <section id="punknft">
+                        <table id="pnft" width="100%">
+                        </table>
+                    </section>                     
+                  </td>                  
+               </tr>        
+               <tr>
+                  <td colspan="2" height=10>&nbsp;</td>
+               </tr>                         
+
+               <tr>
+                  <td colspan="2" height=10>&nbsp;</td>
+               </tr>                                  
+               <tr>
+                  <td colspan="2">
+                     <img with=200 height=200 src="" id="bunny">
+                  </td>
+               </tr>  
+               <tr>
+                  <td colspan="2">
+                     <div id="myProgress">
+                        <div id="myBar"></div>
+                    </div>                     
+                  </td>
+               </tr> 
+               <tr>
+                  <td colspan="2"><p id="seconds-counter"></p></td>
+               </tr>                                 
+               <tr>
+                  <td colspan="2"><p id="status"></p></td>
+               </tr>            
+               
+               
+                                        
+               <tr>
+                  <td colspan="2"><input id="principal" alt="" type="hidden" class="css-input"  value="" onchange="connectWallet()" size="70" /></td>
+               </tr>
+ 
+               <tr>
+                  <td colspan="2"><input id="useraccountname" alt="user-account-name" type="hidden" class="css-input" value="" size="70" /></td>
+               </tr>
+           
+ 
+ 
+   
+               
+
+            
+            </tbody>
+         </table>
+     </section>
+
+    </body>
+</html>

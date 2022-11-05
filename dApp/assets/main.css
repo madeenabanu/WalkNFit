@@ -1,0 +1,91 @@
+body {
+    font-family: sans-serif;
+    font-size: 1.5rem;
+}
+
+img {
+    max-width: 50vw;
+    max-height: 25vw;
+    display: block;
+    margin: auto;
+}
+section {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 40vw;
+    margin: auto;
+    align-items: baseline;
+}
+
+#clickMeBtn {
+    padding: 5px 20px;
+    margin: 10px auto;
+    float: right;
+}
+
+#greeting {
+    margin: 10px auto;
+    padding: 10px 60px;
+    border: 1px solid #222;
+}
+
+#greeting:empty {
+    display: none;
+}
+#myProgress {
+    width: 100%;
+    background-color: #ddd;
+  }
+  
+#myBar {
+width: 1%;
+height: 30px;
+background-color: #E27429;
+}
+
+input.text {border:0;outline:0;}
+
+
+.btn {
+    background: #e67327;
+    background-image: -webkit-linear-gradient(top, #e67327, #ff751f);
+    background-image: -moz-linear-gradient(top, #e67327, #ff751f);
+    background-image: -ms-linear-gradient(top, #e67327, #ff751f);
+    background-image: -o-linear-gradient(top, #e67327, #ff751f);
+    background-image: linear-gradient(to bottom, #e67327, #ff751f);
+    -webkit-border-radius: 54;
+    -moz-border-radius: 54;
+    border-radius: 54px;
+    font-family: Georgia;
+    color: #2e6b2e;
+    font-size: 18px;
+    padding: 10px 20px 10px 20px;
+    border: solid #f56c11 1px;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background: #e08345;
+    background-image: -webkit-linear-gradient(top, #e08345, #cc5302);
+    background-image: -moz-linear-gradient(top, #e08345, #cc5302);
+    background-image: -ms-linear-gradient(top, #e08345, #cc5302);
+    background-image: -o-linear-gradient(top, #e08345, #cc5302);
+    background-image: linear-gradient(to bottom, #e08345, #cc5302);
+    text-decoration: none;
+  }
+
+  .css-input {
+    padding: 8px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #9c4c15;
+    background-color: #E27429;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0px;
+    box-shadow: 0px 0px 5px rgba(179,127,92,.75);
+    text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+}
+.css-input:focus {
+    outline:none;
+}
