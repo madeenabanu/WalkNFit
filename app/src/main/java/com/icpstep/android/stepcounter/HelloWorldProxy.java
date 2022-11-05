@@ -4,17 +4,15 @@ import java.math.BigInteger;
 import java.util.concurrent.CompletableFuture;
 
 import org.ic4j.agent.annotations.QUERY;
-import org.ic4j.agent.annotations.ResponseClass;
 import org.ic4j.agent.annotations.Waiter;
 import org.ic4j.agent.annotations.UPDATE;
 import org.ic4j.agent.annotations.Argument;
-import org.ic4j.candid.annotations.Field;
 import org.ic4j.candid.annotations.Name;
 import org.ic4j.candid.types.Type;
 
 public interface HelloWorldProxy {
 
-    /*
+
     @UPDATE
     @Name("greet")
     @Waiter(timeout = 30)
@@ -22,7 +20,7 @@ public interface HelloWorldProxy {
 
     @QUERY
     public CompletableFuture<String> peek();
-    */
+
 
     @QUERY
     public CompletableFuture<String> hello();
@@ -60,7 +58,6 @@ public interface HelloWorldProxy {
     @Name("setImage")
     @Waiter(timeout = 30)
     public CompletableFuture<BigInteger> setImage(@Argument(Type.TEXT)String imageString);
-
 
 
     @UPDATE

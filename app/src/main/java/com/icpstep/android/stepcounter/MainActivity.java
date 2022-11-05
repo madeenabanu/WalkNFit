@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -43,13 +42,12 @@ import org.ic4j.agent.identity.AnonymousIdentity;
 import org.ic4j.agent.identity.Identity;
 import org.ic4j.types.Principal;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.URISyntaxException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener , View.OnClickListener {
@@ -67,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Drawable drawable = null;
     ImageView user_image=null;
 
+    ReplicaTransport transport = null;
+    Agent agent = null;
+    HelloWorldProxy helloWorldProxy = null;
 
     // Permissions for accessing the storage
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -369,6 +370,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         stepsCounter = steps;
     }
 
+    private void createProxy() throws URISyntaxException {
+        if(transport == null) {
+
+            String url = getResources().getString(R.string.url);
+            String canister = getResources().getString(R.string.canister);
+            
+            transport = ReplicaOkHttpTransport.create(url);
+
+            agent = new AgentBuilder().transport(transport).build();
+
+            Principal principal = Principal.fromString(canister);
+
+            helloWorldProxy = ProxyBuilder.create(agent, principal).getProxy(HelloWorldProxy.class);
+        }
+    }
     private void incrementRedeem()
     {
         pref = getDefaultSharedPreferences(getApplicationContext());
@@ -397,63 +413,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void redeemSteps()
     {
         EditText mEdit;
-
-
-
         mEdit = (EditText) findViewById(R.id.principal);
+
+        boolean callHelloWorld = false;
         try {
-            Identity identity = new AnonymousIdentity();
+            createProxy();
+            if(callHelloWorld)
+            {
+                HelloCanister();
+                setPrincipal(mEdit);
+            }
 
-            String url = getResources().getString(R.string.url);
-            String canister = getResources().getString(R.string.canister);
-
-            Log.d("debug", url);
-            Log.d("debug", canister);
-
-
-            ReplicaTransport transport =
-                    ReplicaOkHttpTransport.create(url);
-
-            Agent agent = new AgentBuilder().transport(transport).build();
-            Principal principal = Principal.fromString(canister);
-
-            HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, principal)
-                    .getProxy(HelloWorldProxy.class);
-
-
-
-                /*
-                // String value Processing
-                String value = "Android";
-
-                CompletableFuture<String> peekResponse = helloWorldProxy.peek();
-
-                String peek = peekResponse.get();
-                Log.d("debug",peek);
-
-                CompletableFuture<String> proxyResponse = helloWorldProxy.greet(value);
-
-                String output = proxyResponse.get();
-                Log.d("debug",output);
-                */
-
-            CompletableFuture<String> proxyResponse = helloWorldProxy.hello();
-
-            String hello = proxyResponse.get();
-            Log.d("debug Hello", hello);
-
-            String redeemPrincipal = mEdit.getText().toString();
-            Log.d("debug Hello", redeemPrincipal);
-
-            /*
-            CompletableFuture<String> setPrincipal = helloWorldProxy.setPrincipal(redeemPrincipal);
-            String setPrincipalResult = setPrincipal.get();
-            Log.d("debug setPrincipal", setPrincipalResult);
-            */
-
-            CompletableFuture<BigInteger> redeemSteps = helloWorldProxy.redeem(redeemPrincipal);
-            BigInteger redeemStepResult = redeemSteps.get();
-            Log.d("debug redeemSteps ", String.valueOf(redeemStepResult.toString()));
+            String redeemPrincipal  = redeemSteps2Token(mEdit);
 
             CompletableFuture<BigInteger> getBalance = helloWorldProxy.balance(redeemPrincipal);
             BigInteger balanceSteps = getBalance.get();
@@ -503,24 +474,51 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    private void HelloCanister() throws ExecutionException, InterruptedException
+    {
+        String value = "Android";
+
+        CompletableFuture<String> peekResponse = helloWorldProxy.peek();
+
+        String peek = peekResponse.get();
+        Log.d("debug",peek);
+
+        CompletableFuture<String> greetResponse = helloWorldProxy.greet(value);
+
+        String output = greetResponse.get();
+        Log.d("debug",output);
+
+        CompletableFuture<String> helloWorldResponse = helloWorldProxy.hello();
+
+        String hello = helloWorldResponse.get();
+        Log.d("debug Hello", hello);
+    }
+    private void setPrincipal(EditText mEdit) throws ExecutionException, InterruptedException
+    {
+        String redeemPrincipal = mEdit.getText().toString();
+        CompletableFuture<String> setPrincipal = helloWorldProxy.setPrincipal(redeemPrincipal);
+        String setPrincipalResult = setPrincipal.get();
+        Log.d("debug setPrincipal", setPrincipalResult);
+    }
+
+
+    private String redeemSteps2Token(EditText mEdit) throws ExecutionException, InterruptedException {
+        String redeemPrincipal = mEdit.getText().toString();
+        Log.d("debug Hello", redeemPrincipal);
+
+        CompletableFuture<BigInteger> redeemSteps = helloWorldProxy.redeem(redeemPrincipal);
+        BigInteger redeemStepResult = redeemSteps.get();
+        Log.d("debug redeemSteps ", String.valueOf(redeemStepResult.toString()));
+
+        return redeemPrincipal;
+    }
     private String uploadImages(String encodedString)
     {
-        String url = getResources().getString(R.string.url);
-        String canister = getResources().getString(R.string.canister);
-
-        Log.d("debug", url);
-        Log.d("debug", canister);
-
 
         try {
-            ReplicaTransport transport =
-                    ReplicaOkHttpTransport.create(url);
 
-            Agent agent = new AgentBuilder().transport(transport).build();
-            Principal principal = Principal.fromString(canister);
+            createProxy();
 
-            HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, principal)
-                    .getProxy(HelloWorldProxy.class);
             CompletableFuture<BigInteger> setImageResult = helloWorldProxy.setImage(encodedString);
             BigInteger imageID = setImageResult.get();
 
@@ -584,19 +582,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void fetchImage()
     {
         try {
-            String url = getResources().getString(R.string.url);
-            String canister = getResources().getString(R.string.canister);
 
-            Log.d("debug", url);
-            Log.d("debug", canister);
-            ReplicaTransport transport =
-                    ReplicaOkHttpTransport.create(url);
-
-            Agent agent = new AgentBuilder().transport(transport).build();
-            Principal principal = Principal.fromString(canister);
-
-            HelloWorldProxy helloWorldProxy = ProxyBuilder.create(agent, principal)
-                    .getProxy(HelloWorldProxy.class);
+            createProxy();
 
             EditText imageEntered   = (EditText)findViewById(R.id.imageId);
 
