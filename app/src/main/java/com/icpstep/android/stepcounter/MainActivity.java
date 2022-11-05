@@ -426,44 +426,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             String redeemPrincipal  = redeemSteps2Token(mEdit);
 
-            CompletableFuture<BigInteger> getBalance = helloWorldProxy.balance(redeemPrincipal);
-            BigInteger balanceSteps = getBalance.get();
-            Log.d("debug balance ", String.valueOf(balanceSteps.toString()));
+            getBalance(redeemPrincipal);
 
-            balanceTokens = balanceSteps.toString();
-
-
-            /*
-            CompletableFuture<BigInteger> getInt = helloWorldProxy.get();
-
-            BigInteger peek = getInt.get();
-            Log.d("debug getInt Query ", String.valueOf(peek.intValue()));
-
-            BigInteger initialValue = new BigInteger("100");
-            CompletableFuture<Void> setInt = helloWorldProxy.set(initialValue);
-
-            Log.d("debug setData", String.valueOf(100));
-
-
-            //String output = setInt.get();
-            //Log.d("debug setData",output);
-
-            CompletableFuture<Void> increment = helloWorldProxy.inc();
-            //output = increment.get();
-            // Log.d("debug increment",output);
-            Log.d("debug increment by 1", String.valueOf(101));
-            for (int i = 0; i <= 4; i++) {
-                //increment = helloWorldProxy.inc();
-                Log.d("debug looping", String.valueOf(i));
-            }
-
-            CompletableFuture<BigInteger> getIncrement = helloWorldProxy.get();
-
-            BigInteger incremented = getIncrement.get();
-            Log.d("debug get Current Value", String.valueOf(incremented.intValue()));
-
-            //LOG.info(output);
-             */
 
 
         } catch (Throwable e) {
@@ -473,6 +437,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         }
     }
+
 
     private void HelloCanister() throws ExecutionException, InterruptedException
     {
@@ -492,6 +457,39 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         String hello = helloWorldResponse.get();
         Log.d("debug Hello", hello);
+
+
+        CompletableFuture<BigInteger> getInt = helloWorldProxy.get();
+
+        BigInteger getNAT = getInt.get();
+        Log.d("debug getInt Query ", String.valueOf(getNAT.intValue()));
+
+        BigInteger initialValue = new BigInteger("100");
+        CompletableFuture<Void> setInt = helloWorldProxy.set(initialValue);
+
+        Log.d("debug setData", String.valueOf(100));
+
+
+        String setNATResult = String.valueOf(setInt.get());
+        Log.d("debug setData",setNATResult);
+
+        CompletableFuture<Void> increment = helloWorldProxy.inc();
+        //output = increment.get();
+        // Log.d("debug increment",output);
+
+        Log.d("debug increment by 1", String.valueOf(101));
+        for (int i = 0; i <= 4; i++) {
+            //increment = helloWorldProxy.inc();
+            Log.d("debug looping", String.valueOf(i));
+        }
+
+        CompletableFuture<BigInteger> getIncrement = helloWorldProxy.get();
+
+        BigInteger incremented = getIncrement.get();
+        Log.d("debug get Current Value", String.valueOf(incremented.intValue()));
+
+        //LOG.info(output);
+
     }
     private void setPrincipal(EditText mEdit) throws ExecutionException, InterruptedException
     {
@@ -501,7 +499,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d("debug setPrincipal", setPrincipalResult);
     }
 
+    private void getBalance(String redeemPrincipal) throws ExecutionException, InterruptedException
+    {
+        CompletableFuture<BigInteger> getBalance = helloWorldProxy.balance(redeemPrincipal);
+        BigInteger balanceSteps = getBalance.get();
+        Log.d("debug balance ", String.valueOf(balanceSteps.toString()));
 
+        balanceTokens = balanceSteps.toString();
+    }
     private String redeemSteps2Token(EditText mEdit) throws ExecutionException, InterruptedException {
         String redeemPrincipal = mEdit.getText().toString();
         Log.d("debug Hello", redeemPrincipal);
@@ -570,10 +575,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             }
         }, 1000);
-
-
-
-
 
 
     }
