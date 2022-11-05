@@ -3,12 +3,12 @@
 
 ## Steps to redeem the steps to ICP Token (im7ut-faaaa-aaaah-qc5ra-cai)
 
-Step 1 : Download the APK from apk folder
-Step 2 : Install in your android phone
-Step 3 : Do walk and earn steps 
-Step 4 : Redeem the steps to ICP Token - Use plug-wallet principal to redeeem
-Step 5 : Add Canister ID : im7ut-faaaa-aaaah-qc5ra-cai 
-Step 6 : Find your tokens Balance
+Step 1 : Download the APK from apk folder  
+Step 2 : Install in your android phone  
+Step 3 : Do walk and earn steps   
+Step 4 : Redeem the steps to ICP Token - Use plug-wallet principal to redeeem  
+Step 5 : Add Canister ID : im7ut-faaaa-aaaah-qc5ra-cai   
+Step 6 : Find your tokens Balance  
 
 ## Steps to upload image
 ** Image size should be less than 100 kb ** (Larger file is not supported as of now)
