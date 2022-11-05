@@ -1,0 +1,8 @@
+<resources>
+<string name="app_name">ICPStep - Powered by Internet Computer</string>
+<string name="edit_message">Enter a message</string>
+<string name="button_send">Send</string>
+<string name="url">https://m7sm4-2iaaa-aaaab-qabra-cai.ic0.app/</string>
+<string name="canister">im7ut-faaaa-aaaah-qc5ra-cai</string>
+<string name="principal">3fz5m-ngf2v-kyozv-wsvxn-3duso-g6avx-nufx7-jbbqe-mrgzn-lavn3-sae</string>
+</resources>
