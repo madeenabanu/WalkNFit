@@ -1,5 +1,3 @@
-# Pedometer
-
 
 # ICPSteps
 
