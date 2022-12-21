@@ -1,5 +1,5 @@
 
-# ICPSteps
+# WalkNFit
 
 ## Steps to redeem the steps to ICP Token (im7ut-faaaa-aaaah-qc5ra-cai)
 
